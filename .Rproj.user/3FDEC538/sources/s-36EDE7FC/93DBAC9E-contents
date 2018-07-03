@@ -1,0 +1,102 @@
+---
+title: "Springboard Capstone RMarkdown"
+author: "Tonka Kozarova Fenichel"
+date: "July 3, 2018"
+output: html_document
+---
+
+~~~ Springboard Capstone Project: Final Report ~~~
+
+
+
+I. THE PROBLEM STATEMENT
+
+1. Provide a user friendly summary dashboard along with relevant filtered data for global 'electric vehicles charging stations'
+   based on the data from www.OpenChargeMap.org. 
+   
+2. Explore any insightful visualizations for the OpenChargeMap data set in RShiny.
+
+
+
+II. THE CLIENT, WHY BOTHER, & OPPORTUNITIES 
+
+1. The OpenChargeMap team
+   - may choose to adopt the format, visualization options, or selected content to alter how it communicates and lets the site user
+   to interpret its data.
+   
+2. An electric vehicle user
+   - may choose to use the dashboard to look up local charging stations data or learn about the global station network, condition to
+   (or not) relevant data entry validation or timeframe status. 
+   
+3. A researcher, student, or any user
+   - may choose to learn more about the local or global network of the electric vehicles charging stations network by accessing the
+   auto-scaled visuals, complete data set, data source web site.  He/she may choose to improve this dashboard look, content etc. to
+   make it more effective for any end user.
+
+
+   
+- OPPORTUNITIES -- Data collection:
+  1. Improve on updateding the station validation status.  THere are about 72k entries in this dataset. Only about 2% of that are
+     stations marked as validated.  The data user client may benefit from knowing if a station not marked as 'recently validated' 
+     is a station that is indeed open.
+  2. Correct the 'country ID' coding.  The expectation is that the 'country IDs' match the ISO country codes.  This is not true. 
+     Correcting that may provide data user a more reliable view of the data set.
+
+- OPPORTUNITIES -- Statistical analysis:
+  1. Including a population census data, proximity of stations to the highway systems, electric vehicle sales data, or alternative
+     vehicle 'charging' stations (like natural gas or gasoline) may bring additional insights to the visualizations and a more
+     in-depth statstical [predictive) modeling.  
+     It would be interesting to construct a kind of supervised model to explore and interpret meaningful dependencies among the
+     variables.
+
+- OPPORTUNITIES -- RShiny Dashboard:
+  1. A more appealing and interactive world map 
+  2. Alter data set to display country names, or include slicer-like widget to allow the user to filetr for set of counries.  A
+     corrected 'country ID' and 'country name' is now available.
+
+
+
+III. APPROACH
+
+1. DATA SET
+- I decided to use data set for the electric vehicles charging stations as published by the OpenChargeMap.com
+- I accessed the data directly through the OpenChargeMap API.  The analysis and Shiny dashboard is based on the real time accessed
+  data.  THe API link is: https://api.openchargemap.io/v2/poi/?output=json&maxresults=130000&compact=true&verbose=false 
+
+2. DATA WRANGLING
+- I reviewed the data, and decided what variables may be useful to keep for my project*.
+- I mutated the names of the columns as needed.  For example, raw data 'AddressInfo' field consisted of 16 sub-columns.  
+  I altereded that to be able to call out country IDs, station lat/long data, and others in the exploratory analysis and 
+  dashboard itself.
+- I handled N/A values as needed, replaced them with "0" values, and excluded them from the analysis and visuals as needed.
+- I did other trivial data wrangling (i.e. variable value replacement for 'UsageTypeID') as needed.
+
+3. DATA VISUALIZATION & STORYTELLING
+- I made sure that some of the summary dashboard boxes display expected summary data formattin (i.e comma in thousnads, %).
+- I wire-framed the Shiny App look for the data, as I visualized it.  I made a 'prototype' in MS PowerBI. 
+- I learned how to use RShiny App to display the summary Dashboard for the complete data set and its subset.  
+- I took an effective guidance from my mentor about the reactive features of Shiny App and the interactive mapping set-up.
+
+
+
+IV. EXPLORATORY DATA ANALYSIS
+I concluded that:
+- There are, generally speaking, weak realtionships among most of the remaing 21 variables in my final raw data
+- Due to the nature of the data, an interactive data visualization approach may be most effective data exploration tool and a great
+  learning opportunity for me
+- Interesting insights from this data set come from: timeseries, statistic summary, mapping/plotting  
+- RShiny App is the best environment for an interactive visualization of this data set
+
+
+
+V. DELIVERABLES
+1. Code for a) data access and b) ShinyApp: completed and available at: 
+2. Paper/final summary of the Capstone Project: completed and avaiable in my 1st Markdown document at: 
+3. Slide deck of the Capstone Project Summary: completed and available at: 
+
+
+
+ 
+![Electric Charging Vehicles Locations Data Summary Dashboard in ShinyApp](https://1drv.ms/u/s!Agx1C09V1jmugfkr-40KKipAGE_hvw)
+ 
+ 

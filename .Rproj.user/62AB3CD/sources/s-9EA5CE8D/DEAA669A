@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1529666900597.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1155612537",
+    "id" : "DEAA669A",
+    "lastKnownWriteTime" : 1529667052,
+    "last_content_update" : 1529667052639,
+    "path" : "~/Documents/Springboard/CarDashboard/dashboard.R",
+    "project_path" : "dashboard.R",
+    "properties" : {
+        "cursorPosition" : "47,20",
+        "scrollLine" : "34"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

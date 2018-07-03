@@ -1,0 +1,300 @@
+#CLEAN UP
+
+rm(list=ls())
+
+#############
+#############
+
+
+library(shiny)
+library(leaflet)
+library(RColorBrewer)
+library(dplyr)
+library(tidyr)
+library(rgdal)
+library(DT)
+library(shinydashboard)
+
+##############
+##############
+
+################################################               ####################################################
+#packages
+library(readr)
+library(readxl)
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(plyr)
+library(httr)
+library(jsonlite)
+library(lubridate)
+library(RCurl)
+library(XML)
+library(rjson)
+library(rgeolocate)
+library(rworldmap)
+library(plyr)
+library(ggmap)
+library(ggplot2)
+library(rgdal)
+library(leaflet)
+
+
+
+
+ecs_api_orig_df <- stream_in(url("https://api.openchargemap.io/v2/poi/?output=json&maxresults=80000&compact=true&verbose=false"))
+
+View(ecs_api_orig_df)
+
+str(ecs_api_orig_df)
+head(ecs_api_orig_df)
+ls(ecs_api_orig_df)
+
+
+ecs_api_wip_df <- cbind(
+  ecs_api_orig_df$OperatorID,
+  ecs_api_orig_df$UsageTypeID,
+  ecs_api_orig_df$AddressInfo[,1],
+  ecs_api_orig_df$AddressInfo[,3],
+  ecs_api_orig_df$AddressInfo[,4],
+  ecs_api_orig_df$AddressInfo[,5],
+  ecs_api_orig_df$AddressInfo[,6],
+  ecs_api_orig_df$AddressInfo[,7],
+  ecs_api_orig_df$AddressInfo[,8],
+  ecs_api_orig_df$AddressInfo[,9],
+  ecs_api_orig_df$NumberOfPoints,
+  ecs_api_orig_df$StatusTypeID,
+  ecs_api_orig_df$DateLastStatusUpdate,
+  ecs_api_orig_df$DataQualityLevel,
+  ecs_api_orig_df$DateCreated,
+  ecs_api_orig_df$SubmissionStatusTypeID,
+  ecs_api_orig_df$IsRecentlyVerified,
+  ecs_api_orig_df$DateLastVerified,
+  ecs_api_orig_df$DataProvidersReference,
+  ecs_api_orig_df$DateLastConfirmed)
+
+View(ecs_api_wip_df)
+
+ecs_api_df <- tbl_df(ecs_api_wip_df)
+View(ecs_api_df)
+
+colnames(ecs_api_df) <- c("operatorID",
+                          "UsageTypeID",
+                          "AddressInfoID",
+                          "AddressInfoAddressLine1",
+                          "AddressInfoTown",
+                          "AddressInfoStateOrProvince",
+                          "AddressInfoPostcode",
+                          "AddressInfoCountryID",
+                          "AddressInfoLatitude",
+                          "AddressInfoLongitude",
+                          "NumberOfPoints",
+                          "StatusTypeID",
+                          "DateLastStatusUpdate",
+                          "DataQualityLevel",
+                          "DateCreated",
+                          "SubmissionStatusTypeID",
+                          "IsRecentlyVerified",
+                          "DateLastVerified",
+                          "DataProvidersReference",
+                          "DateLastConfirmed"
+)
+
+ecs_api_df <- type_convert(ecs_api_df)
+View(ecs_api_df)
+str(ecs_api_df)
+head(ecs_api_df)
+ls(ecs_api_df)
+
+
+write_csv(ecs_api_df, "ecs_api_df.csv" )
+View(ecs_api_df)
+
+summary(ecs_api_df)
+
+#########################################################     #####################################################
+
+
+df <- read.csv("C:/Users/akoza/OneDrive/Documents/R/Springboard/Springboard-Capstone/ecs_api_df.csv")
+
+ui <- dashboardPage(
+  dashboardHeader(title = "Electric Vehicles Global Charging Locations"),
+  #dashboardHeader(dropdownMenuOutput("messageMenu")),
+  dashboardSidebar(
+    #sidebarMenuOutput("Time"),
+    ## Sidebar content
+    sidebarMenu(
+      menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
+      menuItem("Widgets", tabName = "widgets", icon = icon("th")),
+      menuItem("Data", tabName = "data", icon = icon("table")),
+      menuItem("Map", tabName = "map", icon = icon("map")),
+      menuItem("Source data - API", icon = icon("file-code-o"), 
+               href = "https://api.openchargemap.io/v2/poi/?output=json&maxresults=80000&compact=true&verbose=false"),
+      menuItem("Source data - Web", icon = icon("file-code-o"), 
+               href = "https://openchargemap.org/site")
+      #sidebarSearchForm(textId = "searchText", buttonId = "searchButton",label = "Search...")
+    )
+  ),
+  dashboardBody(
+    tabItems(
+      tabItem(tabName = "dashboard",
+              h2("Dashboard: Open Charge Map")
+      ),
+      
+      tabItem(tabName = "widgets",
+              h2("Widgets")
+      ),
+      tabItem(tabName = "data",
+              h2("Data")
+      ),
+      tabItem(tabName = "map",
+              h2("Interactive Map")
+      )
+    ),
+    # Boxes need to be put in a row (or column)
+    fluidRow(
+      box(plotOutput("plot1"),
+      
+       #box(plotOutput("plot2"))
+      
+      box(
+        title = "Controls",
+        sliderInput("slider", "bins", 1, 300, 1),
+        textInput("text", "Text input:")
+      )
+    )
+  )
+))
+
+
+server <- function(input, output) {
+  
+  output$plot1 <- renderPlot({
+    
+    x    <- df$UsageTypeID
+    bins <- seq(min(x, na.rm=TRUE), max(x, na.rm=TRUE), length.out = input$slider + 1)
+    
+    hist(x, breaks = bins, col = "#75AADB", border = "white",
+         xlab = "Usae Type",
+         main = "Histogram: Entries per Charge Usage Type")
+    
+    #c <- count(ecs_api_df$DateCreated)
+    #c
+    #plot(c)
+    
+    
+  })
+}
+
+shinyApp(ui, server)
+
+?sliderInput
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##############################################
+x    <- df$UsageTypeID
+bins <- seq(min(x, na.rm=TRUE), max(x, na.rm=TRUE), length.out = input$bins + 1)
+
+hist(x, breaks = bins, col = "#75AADB", border = "white",
+     xlab = "Usae Type",
+     main = "Histogram: Entries per Charge Usage Type")
+
+##############################################
+
+
+server <- function(input, output) {
+  set.seed(122)
+  histdata <- rnorm(500)
+  #input$searchText
+  #input$searchButton
+  
+  output$plot1 <- renderPlot({
+    data <- histdata[seq_len(input$slider)]
+    hist(data)
+  })
+  #output$time <- renderMenu({
+  #  sidebarMenu(
+  #    menuItem("Time", icon = icon("calendar"))
+  #  )
+  # })
+}
+
+dashboardPage(
+  dashboardHeader,
+  sidebar,
+  body
+)
+
+shinyApp(ui, server)
+
+
+##############################################
+##############################################
+
+# STRUCTURE - DASHBOARD PAGE
+
+dashboardPage(
+  dashboardHeader(),
+  dashboardSidebar(),
+  dashboardBody()
+)
+
+# OR
+
+header <- dashboardHeader()
+
+sidebar <- dashboardSidebar()
+
+body <- dashboardBody()
+
+dashboardPage(header, sidebar, body)
+
+## HEADER:
+dashboardHeader(title = "My Dashboard")
+
+## SIDEBAR:
+
+menuItem("Source code", icon = icon("file-code-o"), 
+         href = "https://github.com/rstudio/shinydashboard/")
+
+## DYNAMIC CONTENT:
+
+ui <- dashboardPage(
+  dashboardHeader(title = "Dynamic sidebar"),
+  dashboardSidebar(
+    sidebarMenuOutput("timeline")
+  ),
+  dashboardBody()
+)
+
+server <- function(input, output) {
+  output$timeline <- renderTimeline({
+    sidebarTimeline(
+      menuItem("Timeline", icon = icon("calendar"))
+    )
+  })
+}
+
+shinyApp(ui, server)
+
+

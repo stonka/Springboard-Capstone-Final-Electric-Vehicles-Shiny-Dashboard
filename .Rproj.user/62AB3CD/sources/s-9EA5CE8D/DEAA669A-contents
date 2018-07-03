@@ -1,0 +1,133 @@
+library(shinydashboard)
+library(shiny)
+library(dplyr)
+library(tidyr)
+library(readr)
+library(ggplot2)
+library(leaflet)
+library(lubridate)
+
+df <- read_csv("ecs_api_df.csv")
+
+df <- unite(df, Address, AddressInfoTitle:AddressInfoStateOrProvince, remove = FALSE, sep = ', ')
+
+ui <- dashboardPage(
+  dashboardHeader(title = "Electric Vehicles Global Charging Locations"),
+  dashboardSidebar(
+    #sidebarMenuOutput("Time"),
+    ## Sidebar content
+    sidebarMenu(
+      menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
+      menuItem("Widgets", tabName = "widgets", icon = icon("th")),
+      menuItem("Data", tabName = "data", icon = icon("table")),
+      menuItem("Map", tabName = "map", icon = icon("map")),
+      menuItem("Source data - API", icon = icon("file-code-o"), 
+               href = "https://api.openchargemap.io/v2/poi/?output=json&maxresults=80000&compact=true&verbose=false"),
+      menuItem("Source data - Web", icon = icon("file-code-o"), 
+               href = "https://openchargemap.org/site"),
+      checkboxInput('verified', 'Recently Verified Only'),
+      dateRangeInput('created', 'Date Created',
+                     start = '2010-01-01',
+                     end = today(),
+                     min = '2010-01-01',
+                     max = today())
+    )
+  ),
+  dashboardBody(
+    tabItems(
+      tabItem(tabName = "dashboard",
+              h2("Dashboard: Open Charge Map")
+           
+      ),
+      
+      tabItem(tabName = "widgets",
+              h2("Widgets"),
+              
+              fluidRow(
+                box(plotOutput("plot1"),
+                    
+                    box(
+                      title = "Controls",
+                      sliderInput("slider", "bins", 1, 300, 1),
+                      textInput("text", "Text input:")
+                    )
+                )
+              )
+              
+      ),
+      tabItem(tabName = "data",
+              h2("Data"),
+              dataTableOutput('data')
+      ),
+      tabItem(tabName = "map",
+              h2("Interactive Map"),
+              leafletOutput('map')
+              
+      )
+    )
+
+  ))
+
+
+server <- function(input, output) {
+  
+  
+  # This creates a new dataset based on selections on the left
+  
+  filter_data <- reactive({
+    df %>%
+      filter(IsRecentlyVerified == input$verified) %>%
+      filter(DateCreated > input$created[1]) %>%
+      filter(DateCreated < input$created[2]) 
+  })
+  
+  
+  output$plot1 <- renderPlot({
+    
+    x    <- df$UsageTypeID
+    bins <- seq(min(x, na.rm=TRUE), max(x, na.rm=TRUE), length.out = input$slider + 1)
+    
+    hist(x, breaks = bins, col = "#75AADB", border = "white",
+         xlab = "Usae Type",
+         main = "Histogram: Entries per Charge Usage Type")
+  
+  })
+  
+  
+  output$map <- renderLeaflet({
+    
+    filter_data() %>%
+      sample_n(1000) %>% # Taking a sample, because the full dataset is too much for the map
+      leaflet() %>% 
+      addTiles() %>%
+      addMarkers(~AddressInfoLongitude,
+                 ~AddressInfoLatitude,
+                 popup = ~Address)
+    
+  })
+  
+  output$data <- renderDataTable({
+    
+    filter_data()
+  
+  })
+  
+}
+
+shinyApp(ui, server)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

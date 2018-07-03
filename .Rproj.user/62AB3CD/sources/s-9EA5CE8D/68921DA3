@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1529662798869.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "68921DA3",
+    "lastKnownWriteTime" : 1529664913,
+    "last_content_update" : 1529664913129,
+    "path" : "~/Documents/Springboard/CarDashboard/create_data.R",
+    "project_path" : "create_data.R",
+    "properties" : {
+        "cursorPosition" : "54,39",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
