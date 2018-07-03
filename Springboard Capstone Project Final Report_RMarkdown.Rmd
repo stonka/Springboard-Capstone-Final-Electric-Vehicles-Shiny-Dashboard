@@ -36,7 +36,7 @@ II. THE CLIENT, WHY BOTHER, & OPPORTUNITIES
 
    
 - OPPORTUNITIES -- Data collection:
-  1. Improve on updateding the station validation status.  THere are about 72k entries in this dataset. Only about 2% of that are
+  1. Improve updating the station validation status.  There are about 70k entries in this dataset. Only about 2% of that are
      stations marked as validated.  The data user client may benefit from knowing if a station not marked as 'recently validated' 
      is a station that is indeed open.
   2. Correct the 'country ID' coding.  The expectation is that the 'country IDs' match the ISO country codes.  This is not true. 
@@ -45,13 +45,13 @@ II. THE CLIENT, WHY BOTHER, & OPPORTUNITIES
 - OPPORTUNITIES -- Statistical analysis:
   1. Including a population census data, proximity of stations to the highway systems, electric vehicle sales data, or alternative
      vehicle 'charging' stations (like natural gas or gasoline) may bring additional insights to the visualizations and a more
-     in-depth statstical [predictive) modeling.  
+     in-depth statistical [predictive) modeling.  
      It would be interesting to construct a kind of supervised model to explore and interpret meaningful dependencies among the
      variables.
 
 - OPPORTUNITIES -- RShiny Dashboard:
-  1. A more appealing and interactive world map 
-  2. Alter data set to display country names, or include slicer-like widget to allow the user to filetr for set of counries.  A
+  1. A more appealing and interactive world map. 
+  2. Alter data set to display country names, or include slicer-like widget to allow the user to filetr for a set of counries.  A
      corrected 'country ID' and 'country name' is now available.
 
 
@@ -64,15 +64,15 @@ III. APPROACH
   data.  THe API link is: https://api.openchargemap.io/v2/poi/?output=json&maxresults=130000&compact=true&verbose=false 
 
 2. DATA WRANGLING
-- I reviewed the data, and decided what variables may be useful to keep for my project*.
+- I reviewed the data, and decided what variables may be useful to keep for my project.
 - I mutated the names of the columns as needed.  For example, raw data 'AddressInfo' field consisted of 16 sub-columns.  
   I altereded that to be able to call out country IDs, station lat/long data, and others in the exploratory analysis and 
   dashboard itself.
 - I handled N/A values as needed, replaced them with "0" values, and excluded them from the analysis and visuals as needed.
-- I did other trivial data wrangling (i.e. variable value replacement for 'UsageTypeID') as needed.
+- I did other data wrangling (i.e. variable value replacement for 'UsageTypeID') as needed.
 
 3. DATA VISUALIZATION & STORYTELLING
-- I made sure that some of the summary dashboard boxes display expected summary data formattin (i.e comma in thousnads, %).
+- I made sure that some of the summary dashboard boxes display expected summary data formatting (i.e comma in thousands, %).
 - I wire-framed the Shiny App look for the data, as I visualized it.  I made a 'prototype' in MS PowerBI. 
 - I learned how to use RShiny App to display the summary Dashboard for the complete data set and its subset.  
 - I took an effective guidance from my mentor about the reactive features of Shiny App and the interactive mapping set-up.
@@ -81,22 +81,22 @@ III. APPROACH
 
 IV. EXPLORATORY DATA ANALYSIS
 I concluded that:
-- There are, generally speaking, weak realtionships among most of the remaing 21 variables in my final raw data
+- There are, generally speaking, weak relationships among most of the 21 variables in my final raw data.
 - Due to the nature of the data, an interactive data visualization approach may be most effective data exploration tool and a great
-  learning opportunity for me
-- Interesting insights from this data set come from: timeseries, statistic summary, mapping/plotting  
-- RShiny App is the best environment for an interactive visualization of this data set
+  learning opportunity for me.
+- Interesting insights from this data set come from: timeseries, statistic summary, mapping/plotting.  
+- RShiny App is the best environment for an interactive visualization of this data set.
 
 
 
 V. DELIVERABLES
-1. Code for a) data access and b) ShinyApp: completed and available at: 
-2. Paper/final summary of the Capstone Project: completed and avaiable in my 1st Markdown document at: 
-3. Slide deck of the Capstone Project Summary: completed and available at: 
+1. Code for a) data access and b) ShinyApp: completed and available at: https://github.com/stonka/Springboard-Capstone-Final-Electric-Vehicles-Shiny-Dashboard 
+2. Paper/final summary of the Capstone Project: completed and avaiable in my 1st Markdown document at: https://github.com/stonka/Springboard-Capstone-Final-Electric-Vehicles-Shiny-Dashboard 
+3. Slide deck of the Capstone Project Summary: completed and available at: https://github.com/stonka/Springboard-Capstone-Final-Electric-Vehicles-Shiny-Dashboard 
 
 
 
  
-![Electric Charging Vehicles Locations Data Summary Dashboard in ShinyApp](https://1drv.ms/u/s!Agx1C09V1jmugfkr-40KKipAGE_hvw)
+
  
  
