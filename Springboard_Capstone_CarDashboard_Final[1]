@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+<base href="_w_7ad8dfd2/">
+    <script type="text/javascript">
+(function() {
+  var workerId = '_w_7ad8dfd2';
+  // remove base href if worker ID is in url
+  if (window.location.href.indexOf(workerId) > 0) {
+    document.querySelector('base').removeAttribute('href');
+  }
+})();
+</script>
+
+      <script type="text/javascript">
+      var __connect = {
+        shinyPre101: false
+      }
+      </script>
+      
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <script type="application/shiny-singletons"></script>
+  <script type="application/html-dependencies">json2[2014.02.04];jquery[1.12.4];shiny[1.0.5];font-awesome[4.7.0];bootstrap-datepicker[1.6.4];datatables[1.10.5];datatables-bootstrap[1.10.5];htmlwidgets[1.2];leaflet[1.3.1];leafletfix[1.0.0];Proj4Leaflet[1.0.1];rstudio_leaflet[1.3.1];leaflet-binding[2.0.0];bootstrap[3.3.7];AdminLTE[2.0.6];shinydashboard[0.7.0]</script>
+<script src="shared/json2-min.js"></script>
+<script src="shared/jquery.min.js"></script>
+<link href="shared/shiny.css" rel="stylesheet" />
+<script src="shared/shiny.min.js"></script>
+<link href="shared/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+<link href="shared/datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" />
+<script src="shared/datepicker/js/bootstrap-datepicker.min.js"></script>
+<script>
+(function() {
+  var datepicker = $.fn.datepicker.noConflict();
+  $.fn.bsDatepicker = datepicker;
+})();
+</script>
+<script src="shared/datatables/js/jquery.dataTables.min.js"></script>
+<link href="shared/datatables/css/dataTables.bootstrap.css" rel="stylesheet" />
+<link href="shared/datatables/css/dataTables.extra.css" rel="stylesheet" />
+<script src="shared/datatables/js/dataTables.bootstrap.js"></script>
+<script src="htmlwidgets-1.2/htmlwidgets.js"></script>
+<link href="leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="leaflet-1.3.1/leaflet.js"></script>
+<link href="leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="leaflet-binding-2.0.0/leaflet.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="shared/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<script src="shared/bootstrap/js/bootstrap.min.js"></script>
+<script src="shared/bootstrap/shim/html5shiv.min.js"></script>
+<script src="shared/bootstrap/shim/respond.min.js"></script>
+<link href="AdminLTE-2.0.6/AdminLTE.min.css" rel="stylesheet" />
+<link href="AdminLTE-2.0.6/_all-skins.min.css" rel="stylesheet" />
+<script src="AdminLTE-2.0.6/app.min.js"></script>
+<link href="shinydashboard-0.7.0/shinydashboard.css" rel="stylesheet" />
+<script src="shinydashboard-0.7.0/shinydashboard.min.js"></script>  <title>EV Chargers</title>
+
+<script src="__assets__/sockjs-0.3.min.js"></script>
+<script src="__assets__/shiny-server-client.js"></script>
+<script>preShinyInit({reconnect:false,reconnectTimeout:0,disableProtocols:["xdr-streaming","xdr-polling","websocket"],transportDebugging:false,token:true,workerId:true,subappTag:true,extendSession:true,fixupInternalLinks:true});</script>
+<link rel="stylesheet" type="text/css" href="__assets__/rstudio-connect.css"/>
+</head>
+
+<body class="skin-blue" style="min-height: 611px;">
+<script type="text/javascript" src="/__static__/components/iframe-resizer/js/iframeResizer.contentWindow.min.js"></script>
+<script type="text/javascript" src="/__static__/frontend/scripts/shinyapps.frame.content.js"></script>
+<script type="text/javascript" src="/__static__/frontend/scripts/shinyapps.js"></script>
+
+  <div class="wrapper">
+    <header class="main-header">
+      <span class="logo">EV Chargers</span>
+      <nav class="navbar navbar-static-top" role="navigation">
+        <span style="display:none;">
+          <i class="fa fa-bars"></i>
+        </span>
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+          <span class="sr-only">Toggle navigation</span>
+        </a>
+        <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav"></ul>
+        </div>
+      </nav>
+    </header>
+    <aside id="sidebarCollapsed" class="main-sidebar" data-collapsed="false">
+      <section id="sidebarItemExpanded" class="sidebar">
+        <ul class="sidebar-menu">
+          <li>
+            <a href="#shiny-tab-dashboard" data-toggle="tab" data-value="dashboard">
+              <i class="fa fa-dashboard"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="#shiny-tab-data" data-toggle="tab" data-value="data">
+              <i class="fa fa-table"></i>
+              <span>Data</span>
+            </a>
+          </li>
+          <li>
+            <a href="#shiny-tab-map" data-toggle="tab" data-value="map">
+              <i class="fa fa-map"></i>
+              <span>Interactive Map</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://openchargemap.org/site" target="_blank">
+              <i class="fa fa-file-code-o"></i>
+              <span>Source data - Web</span>
+            </a>
+          </li>
+          <div class="form-group shiny-input-container">
+            <div class="checkbox">
+              <label>
+                <input id="verified" type="checkbox"/>
+                <span>Recently Verified Only</span>
+              </label>
+            </div>
+          </div>
+          <div id="created" class="shiny-date-range-input form-group shiny-input-container">
+            <label class="control-label" for="created">Date Created</label>
+            <div class="input-daterange input-group">
+              <input class="input-sm form-control" type="text" data-date-language="en" data-date-week-start="0" data-date-format="yyyy-mm-dd" data-date-start-view="month" data-min-date="2010-01-01" data-max-date="2018-07-03" data-initial-date="2010-01-01"/>
+              <span class="input-group-addon"> to </span>
+              <input class="input-sm form-control" type="text" data-date-language="en" data-date-week-start="0" data-date-format="yyyy-mm-dd" data-date-start-view="month" data-min-date="2010-01-01" data-max-date="2018-07-03" data-initial-date="2018-07-03"/>
+            </div>
+          </div>
+        </ul>
+      </section>
+    </aside>
+    <div class="content-wrapper">
+      <section class="content">
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane" id="shiny-tab-dashboard">
+            <h2>Electric Vehicles (EV) Charging Stations: An Overiew</h2>
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="info-box">
+                  <span class="info-box-icon bg-purple">
+                    <i class="fa fa-check-circle"></i>
+                  </span>
+                  <div class="info-box-content">
+                    <span class="info-box-text">EV Charging Stations -- Total Submissions</span>
+                    <span class="info-box-number">
+                      <div id="infoBox1" class="shiny-html-output"></div>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="info-box">
+                  <span class="info-box-icon bg-blue">
+                    <i class="fa fa-pie-chart"></i>
+                  </span>
+                  <div class="info-box-content">
+                    <span class="info-box-text">EV Charging Stations -- Recently Verified Submissions (%)</span>
+                    <span class="info-box-number">
+                      <div id="infoBox2" class="shiny-html-output"></div>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="info-box">
+                  <span class="info-box-icon bg-green">
+                    <i class="fa fa-globe"></i>
+                  </span>
+                  <div class="info-box-content">
+                    <span class="info-box-text">Number of Participating Countries</span>
+                    <span class="info-box-number">
+                      <div id="infoBox3" class="shiny-html-output"></div>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="box">
+                  <div class="box-header">
+                    <h3 class="box-title">EV Charging Stations Worldwide</h3>
+                  </div>
+                  <div class="box-body">
+                    <div id="plot2" class="shiny-plot-output" style="width: 100% ; height: 400px"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="box">
+                  <div class="box-header">
+                    <h3 class="box-title">EV Charging Stations Submissions Over Time</h3>
+                  </div>
+                  <div class="box-body">
+                    <div id="plot3" class="shiny-plot-output" style="width: 100% ; height: 400px"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="box">
+                  <div class="box-header">
+                    <h3 class="box-title">EV Charging Stations Submissions per 'Charge Usage Type ID'</h3>
+                  </div>
+                  <div class="box-body">
+                    <div id="plot1" class="shiny-plot-output" style="width: 100% ; height: 400px"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="box">
+                  <div class="box-header">
+                    <h3 class="box-title">EV Charging Stations per 'Country ID'</h3>
+                  </div>
+                  <div class="box-body">
+                    <div id="plot4" class="shiny-plot-output" style="width: 100% ; height: 400px"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="shiny-tab-data">
+            <h2>Data Table</h2>
+            <div id="data" class="shiny-datatable-output"></div>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="shiny-tab-map">
+            <h2>Interactive Map</h2>
+            <div id="map" style="width:100%; height:400px; " class="leaflet html-widget html-widget-output"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</body>
+
+</html>
